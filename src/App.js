@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import CurrentState from './Components/CurrentState';
+import Home from './Components/Home';
+import './App.css'; // Import the new CSS file
 
-function App() {
+const App = () => {
+  let electricityLahore = true;
+  let electricityRahimYarKhan = false;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/lahore">Lahore Electricity</Link>
+          </li>
+          <li>
+            <Link to="/rahim-yar-khan">Rahim Yar Khan Electricity</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/lahore"
+            element={<CurrentState electricityStatus={electricityLahore} city="Lahore" />}
+          />
+          <Route
+            path="/rahim-yar-khan"
+            element={<CurrentState electricityStatus={electricityRahimYarKhan} city="Rahim Yar Khan" />}
+          />
+        </Routes>
+      </div>
+
+      <footer>
+        <p>&copy; 2024 Electricity Status App. All Rights Reserved.</p>
+      </footer>
+    </Router>
   );
-}
+};
 
 export default App;
